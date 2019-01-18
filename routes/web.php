@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CatalogController@index');
+Route::get('/categories/{category?}/{subcategory?}', 'CatalogController@categories');

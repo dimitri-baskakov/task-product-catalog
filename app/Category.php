@@ -18,4 +18,14 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Product');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent');
+    }
 }

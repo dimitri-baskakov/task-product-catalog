@@ -48,9 +48,9 @@
                 font-size: 25px;
             }
 
-            .links > a {
+            .links a {
                 color: #636b6f;
-                padding: 0 25px;
+                /* padding: 0 25px; */
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -82,8 +82,45 @@
             <div class="content">
                 <div class="title m-b-md">
                     Каталог товаров на Laravel
+                    {{-- {{ $categories[0]['title'] }} --}}
                 </div>
             </div>
         </div>
+        <nav>
+            <ul class="links">
+                @foreach($categories as $category)
+                    @if($category->children->count() > 0)
+                        <li>
+                            <a
+                                href="/categories/{{ $category->alias }}"
+                                style="color: red;"
+                            >
+                                {{ $category->title }}
+                            </a>
+                            <ul>
+                                @foreach($category->children as $subcategory)
+                                    <li>
+                                        <a href="/categories/{{ $category->alias }}/{{ $subcategory->alias }}">
+                                            {{ $subcategory->title }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        {{-- <li>
+                            <a href="/{{ $category->alias }}">
+                                {{ $category->title }}
+                            </a>
+                        </li> --}}
+                    @endif
+                @endforeach
+            </ul>
+        </nav>
+        <main>
+            <div>
+
+            </div>
+        </main>
     </body>
 </html>
