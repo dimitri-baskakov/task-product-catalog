@@ -43,6 +43,11 @@
             .content {
                 text-align: center;
             }
+            .content__header {
+                color: blue;
+                text-align: center;
+                margin-top: 100px;
+            }
 
             .title {
                 font-size: 25px;
@@ -83,6 +88,14 @@
                 min-width: 49vw;
                 /* float: right; */
             }
+
+            .search {
+                /* outline: 1px solid blue; */
+                text-align: center;
+            }
+            .search__input {
+                min-width: 50vw;
+            }
         </style>
     </head>
     <body>
@@ -104,13 +117,12 @@
             <div class="content">
                 <div class="title m-b-md">
                     Каталог товаров на Laravel
-                    {{-- {{ $categories[0]['title'] }} --}}
                 </div>
             </div>
         </div>
         <nav>
             <ul class="links">
-                @foreach($categories as $category)
+                @foreach ($categories as $category)
                     @if($category->children->count() > 0)
                         <li>
                             <a
@@ -119,7 +131,7 @@
                                 {{ $category->title }}
                             </a>
                             <ul>
-                                @foreach($category->children as $subcategory)
+                                @foreach ($category->children as $subcategory)
                                     <li>
                                         <a href="/categories/{{ $category->alias }}/{{ $subcategory->alias }}">
                                             {{ $subcategory->title }}
@@ -138,12 +150,72 @@
                 @endforeach
             </ul>
         </nav>
+        <div class="search">
+            <form
+                action="{{ route('index') }}"
+                method="get"
+            >
+                <div>
+                    <input
+                        type="text"
+                        name="searchString"
+                        placeholder="Поиск товаров по названию и описанию"
+                        value="{{ isset($searchString) ? $searchString : '' }}"
+                        class="search__input"
+                        required
+                    >
+                    <button
+                        type="submit"
+                    >
+                        Найти
+                    </button>
+                    <div
+                        class="search__results"
+                    >
+                        @if ($findProducts)
+                            <h4 class="content__header">
+                                Найденные товары
+                            </h4>
+                        @endif
+                        @foreach ($findProducts as $findProduct)
+                            <div
+                                class="product-card"
+                            >
+                                <div
+                                    class="product-card__image"
+                                >
+                                    <img
+                                        src="{{ $findProduct->image }}"
+                                        alt=""
+                                    >
+                                </div>
+                                <div
+                                    class="product-card__text"
+                                >
+                                    <h3>
+                                        {{ $findProduct->title }} = {{ $findProduct->price }} p.
+                                    </h3>
+                                    <h5>
+                                        {{ $findProduct->description }}
+                                    </h5>
+                                </div>
+                            </div>
+                        @endforeach
+                        @if (!count($findProducts) && isset($searchString))
+                            <h4 class="">
+                                Ничего не найдено
+                            </h4>
+                        @endif
+                    </div>
+                </div>
+            </form>
+        </div>
         <main>
-            <h4 class="content">
+            <h4 class="content__header">
                 20 популярных товаров
             </h4>
             <div>
-                @foreach($topProducts as $topProduct)
+                @foreach ($topProducts as $topProduct)
                     <div
                         class="product-card"
                     >

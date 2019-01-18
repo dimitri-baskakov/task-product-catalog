@@ -27,4 +27,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Category');
     }
+
+    public function scopeSearch($query, $searchString) {
+        return $query->where('title', 'like', "%${searchString}%")
+            ->orWhere('description', 'like', "%${searchString}%");
+    }
 }

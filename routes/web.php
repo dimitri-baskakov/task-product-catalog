@@ -11,5 +11,5 @@
 |
 */
 
-Route::get('/', 'CatalogController@index');
+Route::get('/', 'CatalogController@index')->name('index');
 Route::get('/categories/{categoryAlias?}/{subcategoryAlias?}', 'CatalogController@categories');

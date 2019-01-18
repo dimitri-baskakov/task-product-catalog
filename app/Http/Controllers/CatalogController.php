@@ -9,13 +9,23 @@ use App\Product;
 
 class CatalogController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $categories = Category::with('children')->get();
         $topProducts = Product::limit(20)->get();
 
+        $searchString = $request->input('searchString');
+        $findProducts = [];
+        if ($searchString) {
+            $findProducts = Product::latest()
+                ->search($searchString)
+                ->paginate(50);
+        }
+
         return view('index', compact(
             'categories',
-            'topProducts'
+            'topProducts',
+            'searchString',
+            'findProducts'
         ));
     }
 
