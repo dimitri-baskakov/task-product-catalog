@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     public $incrementing = false;
+    public $fillable = [
+        'id',
+        'title',
+        'image',
+        'description',
+        'first_invoice',
+        'url',
+        'price',
+        'amount',
+    ];
     
     public function offers()
     {

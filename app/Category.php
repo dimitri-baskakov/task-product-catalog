@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public $incrementing = false;
+    public $fillable = [
+        'id',
+        'title',
+        'alias',
+        'parent',
+    ];
     
     public function products()
     {

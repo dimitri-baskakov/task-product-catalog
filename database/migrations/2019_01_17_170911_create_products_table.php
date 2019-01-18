@@ -17,12 +17,12 @@ class CreateProductsTable extends Migration
             // $table->bigIncrements('id');
             $table->bigInteger('id')->unsigned();
             $table->primary('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->dateTime('first_invoice')->nullable();
-            $table->string('url');
-            $table->integer('price');
+            $table->string('url')->nullable();
+            $table->integer('price')->nullable();
             $table->integer('amount')->nullable();
             $table->timestamps();
         });

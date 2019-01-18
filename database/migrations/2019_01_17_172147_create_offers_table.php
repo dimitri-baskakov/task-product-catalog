@@ -19,10 +19,10 @@ class CreateOffersTable extends Migration
             $table->primary('id');
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->integer('price');
-            $table->integer('amount');
-            $table->integer('sales');
-            $table->string('article');
+            $table->integer('price')->nullable();
+            $table->integer('amount')->nullable();
+            $table->integer('sales')->nullable();
+            $table->string('article')->nullable();
             $table->timestamps();
         });
     }
