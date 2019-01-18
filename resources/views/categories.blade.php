@@ -103,47 +103,18 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Каталог товаров на Laravel
-                    {{-- {{ $categories[0]['title'] }} --}}
+                    <a href="/">
+                        Каталог товаров на Laravel
+                    </a>
                 </div>
             </div>
         </div>
-        <nav>
-            <ul class="links">
-                @foreach($categories as $category)
-                    @if($category->children->count() > 0)
-                        <li>
-                            <a
-                                href="/categories/{{ $category->alias }}"
-                            >
-                                {{ $category->title }}
-                            </a>
-                            <ul>
-                                @foreach($category->children as $subcategory)
-                                    <li>
-                                        <a href="/categories/{{ $category->alias }}/{{ $subcategory->alias }}">
-                                            {{ $subcategory->title }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @else
-                        {{-- <li>
-                            <a href="/{{ $category->alias }}">
-                                {{ $category->title }}
-                            </a>
-                        </li> --}}
-                    @endif
-                @endforeach
-            </ul>
-        </nav>
         <main>
             <h4 class="content">
-                20 популярных товаров
+                {{ $categoryTitle ? "Товары категории «${categoryTitle}»" : 'Товары всех категорий' }}
             </h4>
             <div>
-                @foreach($topProducts as $topProduct)
+                @foreach($products as $product)
                     <div
                         class="product-card"
                     >
@@ -151,7 +122,7 @@
                             class="product-card__image"
                         >
                             <img
-                                src="{{ $topProduct->image }}"
+                                src="{{ $product->image }}"
                                 alt=""
                             >
                         </div>
@@ -159,10 +130,10 @@
                             class="product-card__text"
                         >
                             <h3>
-                                {{ $topProduct->title }} = {{ $topProduct->price }} p.
+                                {{ $product->title }} = {{ $product->price }} p.
                             </h3>
                             <h5>
-                                {{ $topProduct->description }}
+                                {{ $product->description }}
                             </h5>
                         </div>
                     </div>
